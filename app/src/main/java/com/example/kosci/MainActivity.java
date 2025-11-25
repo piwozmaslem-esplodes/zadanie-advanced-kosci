@@ -62,47 +62,47 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 ImageView[] pola = {foto1, foto2, foto3, foto4, foto5};
                 int[] kosci = new int[5];
-                int wynik = 0, para = 0, mStreet = 0, dStreet = 0, full = 0, poker = 0, kareta = 0, trojka = 0, cus = 0;
+                int wynik = 0, dwiePary = 0,  para = 0, mStreet = 0, dStreet = 0, full = 0, poker = 0, kareta = 0, trojka = 0, rzutKostka;
 
-                for (int i = 0; i < 5; i++) {
-                    cus = random.nextInt(6) + 1;
-                    for (int a = 0; a < kosci.length; a++){
-                        if (cus == kosci[a]){
-                            if (para == 0){
-                                para = kosci[i] + kosci[a];
+                for (int i = 0; i < kosci.length; i++) {
+                    rzutKostka = random.nextInt(6) + 1;
+
+                        for (int j = 0; j < kosci.length; j++){
+
+                            if(para > 0  && rzutKostka == kosci[j]){
+                                dwiePary = para + rzutKostka + kosci[j];
                             }
+
+                            //para
+                            if(rzutKostka == kosci[j]){
+                                if (rzutKostka + kosci[j] > para){
+                                    para = rzutKostka + kosci[j];
+                                }
+                            }
+
+
+
+
+
                         }
-                    }
-                    kosci[i] = cus;
+                    kosci[i] = rzutKostka;
                     pola[i].setImageResource(obrazy[kosci[i] - 1]);
                     wynik += kosci[i];
                     poprzedniaLiczba = kosci[i];
-                }
-                if (kosci[0] == 1 && kosci[1] == 2 && kosci[2] == 3 && kosci[3] == 4 && kosci[4] == 5){
-                    mStreet = 15;
-                }
-                if (kosci[0] == 2 && kosci[1] == 3 && kosci[2] == 4 && kosci[3] == 5 && kosci[4] == 6){
-                    dStreet = 20;
                 }
 
                 textLosowanie.setText("Wynik tego losowania: " + wynik);
                 wynikGry += wynik;
                 textWynikGry.setText("Wynik gry: " + wynikGry);
                 textView3.setText("Para: " + para);
-                textView4.setText("2 Pary: ");
+                textView4.setText("2 Pary: " + dwiePary);
                 textView5.setText("Trójka: " + trojka);
                 textView6.setText("Kareta: " + kareta);
                 textView7.setText("Poker: " + poker);
                 textView8.setText("Full: " + full);
                 textView9.setText("m Street: " + mStreet);
                 textView10.setText("d Street: " + dStreet);
-                para = 0;
-                mStreet = 0;
-                dStreet = 0;
-                full = 0;
-                poker = 0;
-                kareta = 0;
-                trojka = 0;
+
 
             }
         });
